@@ -1,0 +1,33 @@
+{
+    "name": "flap_input_actions",
+    "maps": [
+        {
+            "name": "player",
+            "id": "e79cb156-e857-40d3-b430-6d7d1b5c51b8",
+            "actions": [
+                {
+                    "name": "flap",
+                    "type": "Button",
+                    "id": "eabf7a3d-40a5-4016-94ee-2292f6d78900",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "33f38b5e-3f3e-4c77-be36-23c2baebc960",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "flap",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

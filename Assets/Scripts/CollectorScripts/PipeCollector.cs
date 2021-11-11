@@ -1,49 +1,77 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using Assets.UnityFoundation.Code.Common;
+using UnityEngine;
 
-public class PipeCollector : MonoBehaviour {
+public class PipeCollector : Singleton<PipeCollector> {
 
-	private GameObject[] pipeHolders;
-	private float distance = 2.5f;
-	private float lastPipeX;
-	private float pipeMin = -1.5f;
-	private float pipeMax = 2.4f;
+    [SerializeField] private Transform spawnPoint;
+    [SerializeField] private float pipeMin = -7f;
+    [SerializeField] private float pipeMax = 9f;
 
-	void Awake(){
-		pipeHolders = GameObject.FindGameObjectsWithTag("PipeHolder");
+    private GameObject[] pipeHolders;
+    private float distance = 10f;
+    private float lastPipeX;
+    private float openingSize = 5f;
 
-		for (int i = 0; i < pipeHolders.Length; i++) {
-			Vector3 temp = pipeHolders[i].transform.position;
-			temp.y = Random.Range(pipeMin, pipeMax);
-			pipeHolders[i].transform.position = temp;
-		}
+    public PipeCollector Setup(
+        float distance,
+        float openingSize,
+        bool restartPositions
+    ) {
+        this.distance = distance;
+        this.openingSize = openingSize;
 
-		lastPipeX = pipeHolders [0].transform.position.x;
-		for (int i = 1; i < pipeHolders.Length; i++) {
-			if(lastPipeX < pipeHolders[i].transform.position.x){
-				lastPipeX = pipeHolders[i].transform.position.x;
-			}
-		}
+        if(restartPositions)
+            InitializeObjects();
 
-	}
+        return this;
+    }
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    private void InitializeObjects() {
+        pipeHolders = GameObject.FindGameObjectsWithTag("PipeHolder");
 
-	}
+        lastPipeX = spawnPoint.position.x;
+        for(int i = 0; i < pipeHolders.Length; i++) {
+            UpdatePipeHolderPosition(pipeHolders[i], lastPipeX + distance * i);
+        }
 
-	void OnTriggerEnter2D(Collider2D target){
-		if (target.tag == "PipeHolder") {
-			Vector3 temp = target.transform.position;
-			temp.x = lastPipeX + distance;
-			temp.y = Random.Range (pipeMin, pipeMax);
-			target.transform.position = temp;
-			lastPipeX = temp.x;
-		}
-	}
+        lastPipeX = pipeHolders[pipeHolders.Length - 1].transform.position.x;
+    }
+
+    void OnTriggerEnter2D(Collider2D target) {
+        if(target.tag == "PipeHolder") {
+            lastPipeX += distance;
+            UpdatePipeHolderPosition(target.gameObject, lastPipeX);
+        }
+    }
+
+    private void UpdatePipeHolderPosition(GameObject pipeHolder, float posX) {
+        pipeHolder.transform.position = new Vector3(
+            posX,
+            pipeHolder.transform.position.y,
+            0f
+        );
+
+        var meanPipeHolder = (pipeMax + pipeMin) / 2f;
+
+        var upperPipe = pipeHolder.transform.Find("upper_pipe");
+        upperPipe.localPosition = new Vector3(
+            0f,
+            Random.Range(
+                meanPipeHolder + (openingSize / 2f),
+                pipeMax - 6 / openingSize
+            ) + 3f,
+            0f
+        );
+
+        var underPipe = pipeHolder.transform.Find("under_pipe");
+        underPipe.localPosition = new Vector3(
+            0f,
+            Random.Range(
+                pipeMin + 6 / openingSize, 
+                meanPipeHolder - (openingSize / 2f)
+            ) - 3f,
+            0f
+        );
+    }
+
 }

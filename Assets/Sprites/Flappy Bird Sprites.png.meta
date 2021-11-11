@@ -4,10 +4,10 @@ TextureImporter:
   internalIDToNameTable:
   - first:
       213: 21300000
-    second: Red Pipe
+    second: red_pipe_sprite
   - first:
       213: 21300002
-    second: Green Pipe
+    second: green_pipe_sprite
   - first:
       213: 21300004
     second: Blue Bird 1
@@ -58,7 +58,7 @@ TextureImporter:
     second: Score
   - first:
       213: 21300036
-    second: Flappy Bird Sprites_24
+    second: basic_button_sprite
   - first:
       213: 21300038
     second: GooglePlay
@@ -122,9 +122,9 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: -1
+    filterMode: 1
     aniso: 16
-    mipBias: -100
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -181,7 +181,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Red Pipe
+      name: red_pipe_sprite
       rect:
         serializedVersion: 2
         x: 20
@@ -202,7 +202,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Green Pipe
+      name: green_pipe_sprite
       rect:
         serializedVersion: 2
         x: 111
@@ -559,7 +559,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Flappy Bird Sprites_24
+      name: basic_button_sprite
       rect:
         serializedVersion: 2
         x: 214
@@ -710,7 +710,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 23
-        y: 215
+        y: 213
         width: 719
         height: 236
       alignment: 0
@@ -813,7 +813,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 9c7b0affb612249409297438efd9a9a9
     internalID: 0
     vertices: []
     indices: 
